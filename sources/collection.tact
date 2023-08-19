@@ -1,19 +1,23 @@
 import "./jettonToken";
 const minTonsForStorage: Int = ton("0.01");
 const gasConsumption: Int = ton("0.01");
+const basic_uint_for_integer: Int = 1000000000; 
+// 10^9 = 1 Token
+// 10^8 = 0.1 Token
 
-// contract Factory {
-//     collection_address: Address; 
+contract Factory {
+    collection_address: Address; 
 
-//     init(collection_address: Address) {
-//         self.collection_address = collection_address;
-//     }
-// }
+    init(collection_address: Address) {
+        self.collection_address = collection_address;
+    }
+}
 
 
-message Fractionalize {
+message FractionalizePost {
     item_index: Int as uint32;
     original_applicant: Address;
+    uints: Int as uint32; // 0 - 
 }
 
 message Defractionalize {
@@ -70,13 +74,13 @@ contract NftCollection {
         self.next_item_index = self.next_item_index + 1;
     }
     // ===== Fractionalized ===== //
-    receive(msg: Fractionalize) {
+    receive(msg: FractionalizePost) {
         let ctx: Context = context();
         require(ctx.sender == self.get_nft_address_by_index(msg.item_index), "not from NFT Item");
 
         // Store the information of fractionalized NFT
-        self.fractionalized_nft.set(msg.item_index, self.fractional_index);  // [NFT_ID => Index_ID]
-        self.fractional_index = self.fractional_index + 1;                  // Index_ID++
+        // self.fractionalized_nft.set(msg.item_index, self.fractional_index);  // [NFT_ID => Index_ID]
+        // self.fractional_index = self.fractional_index + 1;                  // Index_ID++
 
         // Create a new NFT Item
         let token_init: StateInit = initOf Token(self.admin, myAddress());
@@ -84,7 +88,8 @@ contract NftCollection {
             contractAddress(token_init),
             TokenMinting {  // 0xac33de2f
                 collection_address: myAddress(), 
-                original_applicant: msg.original_applicant
+                original_applicant: msg.original_applicant,
+                amount: msg.uints * basic_uint_for_integer
             }.toCell(),
             false,
             token_init
@@ -195,6 +200,10 @@ message RedeemNftItem {
     new_owner: Address;
 }
 
+message FractionalizeParams {
+    units: Int as uint32; // 0 - 4,294,967,295
+}
+
 contract NftItem {
     collection_address: Address;
     item_index: Int; 
@@ -273,7 +282,7 @@ contract NftItem {
         });
     }
 
-    receive("f") {
+    receive(msg: FractionalizeParams) {
         let ctx: Context = context();
         require(ctx.sender == self.owner, "not owner");
         self.locked = true;
@@ -282,9 +291,10 @@ contract NftItem {
             value: 0,
             mode: SendIgnoreErrors + SendRemainingValue, 
             bounce: false,
-            body: Fractionalize {
+            body: FractionalizePost {
                 item_index: self.item_index,
-                original_applicant: ctx.sender
+                original_applicant: ctx.sender,
+                units: msg.units
             }.toCell()
         });
     }
