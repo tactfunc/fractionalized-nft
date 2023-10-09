@@ -22,30 +22,6 @@ _ $StateInit$_get_code((cell, cell) v) inline {
 }
 
 ;;
-;; Type: TokenBurnNotification
-;; Header: 0x7bdd97de
-;; TLB: token_burn_notification#7bdd97de queryId:uint64 amount:coins owner:address responseAddress:Maybe address = TokenBurnNotification
-;;
-
-builder $TokenBurnNotification$_store(builder build_0, (int, int, slice, slice) v) inline {
-    var (v'queryId, v'amount, v'owner, v'responseAddress) = v;
-    build_0 = store_uint(build_0, 2078119902, 32);
-    build_0 = build_0.store_uint(v'queryId, 64);
-    build_0 = build_0.store_coins(v'amount);
-    build_0 = __tact_store_address(build_0, v'owner);
-    build_0 = __tact_store_address_opt(build_0, v'responseAddress);
-    return build_0;
-}
-
-cell $TokenBurnNotification$_store_cell((int, int, slice, slice) v) inline {
-    return $TokenBurnNotification$_store(begin_cell(), v).end_cell();
-}
-
-((int, int, slice, slice)) $TokenBurnNotification$_constructor_queryId_amount_owner_responseAddress(int queryId, int amount, slice owner, slice responseAddress) inline {
-    return (queryId, amount, owner, responseAddress);
-}
-
-;;
 ;; Type: TokenTransfer
 ;; Header: 0x0f8a7ea5
 ;; TLB: token_transfer#0f8a7ea5 queryId:uint64 amount:coins destination:address response_destination:address customPayload:Maybe ^cell forward_ton_amount:coins forward_payload:remainder<slice> = TokenTransfer
@@ -157,6 +133,30 @@ cell $TokenExcesses$_store_cell((int) v) inline {
 
 ((int, slice, slice, cell)) $WalletData$_constructor_balance_owner_master_code(int balance, slice owner, slice master, cell code) inline {
     return (balance, owner, master, code);
+}
+
+;;
+;; Type: TokenBurnNotification
+;; Header: 0x7bdd97de
+;; TLB: token_burn_notification#7bdd97de queryId:uint64 amount:coins owner:address responseAddress:Maybe address = TokenBurnNotification
+;;
+
+builder $TokenBurnNotification$_store(builder build_0, (int, int, slice, slice) v) inline {
+    var (v'queryId, v'amount, v'owner, v'responseAddress) = v;
+    build_0 = store_uint(build_0, 2078119902, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    build_0 = build_0.store_coins(v'amount);
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = __tact_store_address_opt(build_0, v'responseAddress);
+    return build_0;
+}
+
+cell $TokenBurnNotification$_store_cell((int, int, slice, slice) v) inline {
+    return $TokenBurnNotification$_store(begin_cell(), v).end_cell();
+}
+
+((int, int, slice, slice)) $TokenBurnNotification$_constructor_queryId_amount_owner_responseAddress(int queryId, int amount, slice owner, slice responseAddress) inline {
+    return (queryId, amount, owner, responseAddress);
 }
 
 ;;

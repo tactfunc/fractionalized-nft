@@ -1,25 +1,4 @@
-message UploadContent {
-    content: Cell;
-}
-
-message TokenMinting {
-    collection_address: Address;
-    original_applicant: Address;
-}
-
-message SafeTokenBurn {
-    queryId: Int as uint64;
-    amount: Int as coins;
-    owner: Address;
-    responseAddress: Address?;
-}
-
-message(0x7bdd97de) TokenBurnNotification {
-    queryId: Int as uint64;
-    amount: Int as coins;
-    owner: Address;
-    responseAddress: Address?;
-}
+import "./message";
 
 contract Jetton_Root {
     total_supply: Int as coins;
@@ -40,7 +19,6 @@ contract Jetton_Root {
     receive(msg: UploadContent) {
         let ctx: Context = context();
         // require(ctx.sender == self.admin, "Only admin can upload content"); // NOTICE: Need to decomment this line
-
         self.content = msg.content;
         self.forward(self.admin, "Success".asComment(), false, null);
     }
@@ -147,47 +125,6 @@ struct MasterData {
 
 
 // ======================================== Jetton Wallet ========================================
-message(0xf8a7ea5) TokenTransfer {
-    queryId: Int as uint64;
-    amount: Int as coins;
-    destination: Address;
-    response_destination: Address;
-    customPayload: Cell?;
-    forward_ton_amount: Int as coins;
-    forward_payload: Slice as remaining;
-}
-
-message(0x178d4519) TokenTransferInternal {
-    queryId: Int as uint64;
-    amount: Int as coins;
-    from: Address;
-    response_destination: Address;
-    forward_ton_amount: Int as coins;
-    forward_payload: Slice as remaining;
-}
-
-message(0x7362d09c) TokenNotification {
-    queryId: Int as uint64;
-    amount: Int as coins;
-    from: Address;
-    forward_payload: Slice as remaining;
-}
-
-message(0x595f07bc) TokenBurn {
-    queryId: Int as uint64;
-    amount: Int as coins;
-    owner: Address;
-    response_destination: Address;
-}
-
-message(0xd53276db) TokenExcesses {
-    queryId: Int as uint64;
-}
-
-message TokenUpdateContent {
-    content: Cell?;
-}
-
 contract JettonDefaultWallet {
     balance: Int as coins;
     owner: Address;

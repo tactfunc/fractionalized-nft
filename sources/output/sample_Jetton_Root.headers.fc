@@ -42,15 +42,6 @@ cell __tact_dict_set_code(cell dict, int id, cell code) inline;
 ;; __tact_dict_get_code
 cell __tact_dict_get_code(cell dict, int id) inline;
 
-;; $UploadContent$_load
-(slice, ((cell))) $UploadContent$_load(slice sc_0) inline;
-
-;; $TokenMinting$_load
-(slice, ((slice, slice))) $TokenMinting$_load(slice sc_0) inline;
-
-;; $TokenBurnNotification$_load
-(slice, ((int, int, slice, slice))) $TokenBurnNotification$_load(slice sc_0) inline;
-
 ;; $TokenTransferInternal$_store
 builder $TokenTransferInternal$_store(builder build_0, (int, int, slice, slice, int, slice) v) inline_ref;
 
@@ -62,6 +53,15 @@ builder $TokenExcesses$_store(builder build_0, (int) v) inline;
 
 ;; $TokenExcesses$_store_cell
 cell $TokenExcesses$_store_cell((int) v) inline;
+
+;; $UploadContent$_load
+(slice, ((cell))) $UploadContent$_load(slice sc_0) inline;
+
+;; $TokenMinting$_load
+(slice, ((slice, slice))) $TokenMinting$_load(slice sc_0) inline;
+
+;; $TokenBurnNotification$_load
+(slice, ((int, int, slice, slice))) $TokenBurnNotification$_load(slice sc_0) inline;
 
 ;; $Defractionalize$_store
 builder $Defractionalize$_store(builder build_0, (slice) v) inline;

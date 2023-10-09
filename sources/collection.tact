@@ -1,27 +1,21 @@
 import "./jettonToken";
+
 const minTonsForStorage: Int = ton("0.05");
 const gasConsumption: Int = ton("0.05");
 
-message Fractionalize {
-    item_index: Int as uint32;
-    original_applicant: Address;
+struct CollectionData {
+    next_item_index: Int;
+    collection_content: Cell;
+    admin: Address;
 }
 
-message Defractionalize {
-    sender: Address;
-}
-
-message(0x693d3950) GetRoyaltyParams {
-    query_id: Int as uint64;
-}
-
-message(0xa8cb00ad) ReportRoyaltyParams {
-    query_id: Int as uint64;
-    numerator:  Int as uint16;
-    denominator: Int as uint16;
+struct RoyaltyParams {
+    numerator: Int;
+    denominator: Int;
     destination: Address;
 }
 
+// ---------------------------------------------------------------------------------------------------- //=
 contract NftCollection {
     next_item_index: Int as uint32 = 0;
     admin: Address;
@@ -40,7 +34,8 @@ contract NftCollection {
 
     receive("Mint"){
         let ctx: Context = context(); // get sender Info
-        self.mint(ctx.sender, self.restTransactionValue(ctx.value));
+        let restValue: Int = self.restTransactionValue(ctx.value)
+        self.mint(ctx.sender, restValue);
     }
 
     // ===== Private Methods ===== //
@@ -53,7 +48,7 @@ contract NftCollection {
                 value: msgValue, 
                 bounce: false,
                 mode: SendIgnoreErrors,
-                body: Transfer{
+                body: Transfer {
                     query_id: 0,
                     new_owner: sender,
                     response_destination: self.admin,
@@ -171,18 +166,6 @@ contract NftCollection {
     get fun royalty_params(): RoyaltyParams {
         return self.royalty_params;
     }
-}
-
-struct CollectionData {
-    next_item_index: Int;
-    collection_content: Cell;
-    admin: Address;
-}
-
-struct RoyaltyParams {
-    numerator: Int;
-    denominator: Int;
-    destination: Address;
 }
 
 // ---------------------------------------------------------------------------------------------------- //=
@@ -314,40 +297,6 @@ contract NftItem {
             individual_content: b.toCell()
         };
     }
-}
-
-message RedeemNftItem {
-    new_owner: Address;
-}
-
-// [Collection Contract] -> Transfer -> OwnershipAssigned -> NFTExcesses
-message(0x5fcc3d14) Transfer { 
-    query_id: Int as uint64;            
-    new_owner: Address; 
-    response_destination: Address; 
-    custom_payload: Cell?; 
-    forward_amount: Int as coins; 
-    forward_payload: Slice as remaining; 
-}
-
-message(0x05138d91) OwnershipAssigned{
-    query_id: Int as uint64;
-    prev_owner: Address;
-    forward_payload: Slice as remaining; 
-}
-
-message(0xd53276db) Excesses {
-    query_id: Int as uint64;
-}
-
-message(0x2fcb26a2) GetStaticData { 
-    query_id: Int as uint64;
-}
-
-message(0x8b771735) ReportStaticData{
-    query_id: Int as uint64;
-    index_id: Int;
-    collection: Address;
 }
 
 struct GetNftData { 

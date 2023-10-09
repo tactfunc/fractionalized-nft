@@ -42,12 +42,6 @@ cell __tact_dict_set_code(cell dict, int id, cell code) inline;
 ;; __tact_dict_get_code
 cell __tact_dict_get_code(cell dict, int id) inline;
 
-;; $TokenBurnNotification$_store
-builder $TokenBurnNotification$_store(builder build_0, (int, int, slice, slice) v) inline;
-
-;; $TokenBurnNotification$_store_cell
-cell $TokenBurnNotification$_store_cell((int, int, slice, slice) v) inline;
-
 ;; $TokenTransfer$_load
 (slice, ((int, int, slice, slice, cell, int, slice))) $TokenTransfer$_load(slice sc_0) inline_ref;
 
@@ -71,6 +65,12 @@ builder $TokenExcesses$_store(builder build_0, (int) v) inline;
 
 ;; $TokenExcesses$_store_cell
 cell $TokenExcesses$_store_cell((int) v) inline;
+
+;; $TokenBurnNotification$_store
+builder $TokenBurnNotification$_store(builder build_0, (int, int, slice, slice) v) inline;
+
+;; $TokenBurnNotification$_store_cell
+cell $TokenBurnNotification$_store_cell((int, int, slice, slice) v) inline;
 
 ;; $JettonDefaultWallet$_store
 builder $JettonDefaultWallet$_store(builder build_0, (int, slice, slice, int) v) inline;

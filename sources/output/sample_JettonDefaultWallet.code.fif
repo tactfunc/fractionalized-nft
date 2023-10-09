@@ -12,8 +12,6 @@ PROGRAM{
   DECLPROC __tact_slice_eq_bits
   DECLPROC __tact_dict_set_code
   DECLPROC __tact_dict_get_code
-  DECLPROC $TokenBurnNotification$_store
-  DECLPROC $TokenBurnNotification$_store_cell
   DECLPROC $TokenTransfer$_load
   DECLPROC $TokenTransferInternal$_store
   DECLPROC $TokenTransferInternal$_store_cell
@@ -22,6 +20,8 @@ PROGRAM{
   DECLPROC $TokenNotification$_store_cell
   DECLPROC $TokenExcesses$_store
   DECLPROC $TokenExcesses$_store_cell
+  DECLPROC $TokenBurnNotification$_store
+  DECLPROC $TokenBurnNotification$_store_cell
   DECLPROC $JettonDefaultWallet$_store
   DECLPROC $JettonDefaultWallet$_load
   DECLPROC $StateInit$_get_code
@@ -162,25 +162,6 @@ PROGRAM{
     NULLSWAPIFNOT
     135 THROWIFNOT
   }>
-  $TokenBurnNotification$_store PROCINLINE:<{
-    2078119902 PUSHINT
-    s0 s5 XCHG2
-    32 STU
-    s1 s3 XCHG
-    64 STU
-    SWAP
-    STGRAMS
-    SWAP
-    __tact_store_address INLINECALLDICT
-    SWAP
-    __tact_store_address_opt INLINECALLDICT
-  }>
-  $TokenBurnNotification$_store_cell PROCINLINE:<{
-    NEWC
-    4 -ROLL
-    $TokenBurnNotification$_store INLINECALLDICT
-    ENDC
-  }>
   $TokenTransfer$_load PROCREF:<{
     32 LDU
     SWAP
@@ -278,6 +259,25 @@ PROGRAM{
     NEWC
     SWAP
     $TokenExcesses$_store INLINECALLDICT
+    ENDC
+  }>
+  $TokenBurnNotification$_store PROCINLINE:<{
+    2078119902 PUSHINT
+    s0 s5 XCHG2
+    32 STU
+    s1 s3 XCHG
+    64 STU
+    SWAP
+    STGRAMS
+    SWAP
+    __tact_store_address INLINECALLDICT
+    SWAP
+    __tact_store_address_opt INLINECALLDICT
+  }>
+  $TokenBurnNotification$_store_cell PROCINLINE:<{
+    NEWC
+    4 -ROLL
+    $TokenBurnNotification$_store INLINECALLDICT
     ENDC
   }>
   $JettonDefaultWallet$_store PROCINLINE:<{
@@ -773,7 +773,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d5962413968746a4b50327a77344372634e586a545a6957764e72504d7265567a4e386d4a4c6f79324e554c4d} PUSHSLICE
+    x{697066733a2f2f516d4e5578345a7954596637475579366b4c365a5374646438506131746f657846463774507a425962666e397737} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

@@ -20,17 +20,17 @@ PROGRAM{
   DECLPROC __tact_string_builder_append
   DECLPROC $TokenMinting$_store
   DECLPROC $TokenMinting$_store_cell
-  DECLPROC $Fractionalize$_load
-  DECLPROC $Defractionalize$_load
-  DECLPROC $GetRoyaltyParams$_load
-  DECLPROC $ReportRoyaltyParams$_store
-  DECLPROC $ReportRoyaltyParams$_store_cell
   DECLPROC $RoyaltyParams$_store
   DECLPROC $RoyaltyParams$_load
+  DECLPROC $Fractionalize$_load
+  DECLPROC $Defractionalize$_load
   DECLPROC $RedeemNftItem$_store
   DECLPROC $RedeemNftItem$_store_cell
   DECLPROC $Transfer$_store
   DECLPROC $Transfer$_store_cell
+  DECLPROC $GetRoyaltyParams$_load
+  DECLPROC $ReportRoyaltyParams$_store
+  DECLPROC $ReportRoyaltyParams$_store_cell
   DECLPROC $NftCollection$_store
   DECLPROC $NftCollection$_load
   DECLPROC $StateInit$_not_null
@@ -328,6 +328,23 @@ PROGRAM{
     $TokenMinting$_store INLINECALLDICT
     ENDC
   }>
+  $RoyaltyParams$_store PROCINLINE:<{
+    s2 s3 XCHG2
+    257 PUSHINT
+    STIX
+    257 PUSHINT
+    STIX
+    SWAP
+    __tact_store_address INLINECALLDICT
+  }>
+  $RoyaltyParams$_load PROCINLINE:<{
+    257 PUSHINT
+    LDIX
+    257 PUSHINT
+    LDIX
+    __tact_load_address INLINECALLDICT
+    s3 s3 s0 XCHG3
+  }>
   $Fractionalize$_load PROCINLINE:<{
     32 LDU
     SWAP
@@ -345,49 +362,6 @@ PROGRAM{
     EQUAL
     129 THROWIFNOT
     __tact_load_address INLINECALLDICT
-  }>
-  $GetRoyaltyParams$_load PROCINLINE:<{
-    32 LDU
-    SWAP
-    1765620048 PUSHINT
-    EQUAL
-    129 THROWIFNOT
-    64 LDU
-    SWAP
-  }>
-  $ReportRoyaltyParams$_store PROCINLINE:<{
-    2831876269 PUSHINT
-    s0 s5 XCHG2
-    32 STU
-    s1 s3 XCHG
-    64 STU
-    16 STU
-    16 STU
-    SWAP
-    __tact_store_address INLINECALLDICT
-  }>
-  $ReportRoyaltyParams$_store_cell PROCINLINE:<{
-    NEWC
-    4 -ROLL
-    $ReportRoyaltyParams$_store INLINECALLDICT
-    ENDC
-  }>
-  $RoyaltyParams$_store PROCINLINE:<{
-    s2 s3 XCHG2
-    257 PUSHINT
-    STIX
-    257 PUSHINT
-    STIX
-    SWAP
-    __tact_store_address INLINECALLDICT
-  }>
-  $RoyaltyParams$_load PROCINLINE:<{
-    257 PUSHINT
-    LDIX
-    257 PUSHINT
-    LDIX
-    __tact_load_address INLINECALLDICT
-    s3 s3 s0 XCHG3
   }>
   $RedeemNftItem$_store PROCINLINE:<{
     2889945784 PUSHINT
@@ -434,6 +408,32 @@ PROGRAM{
     NEWC
     6 -ROLL
     $Transfer$_store INLINECALLDICT
+    ENDC
+  }>
+  $GetRoyaltyParams$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    1765620048 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  $ReportRoyaltyParams$_store PROCINLINE:<{
+    2831876269 PUSHINT
+    s0 s5 XCHG2
+    32 STU
+    s1 s3 XCHG
+    64 STU
+    16 STU
+    16 STU
+    SWAP
+    __tact_store_address INLINECALLDICT
+  }>
+  $ReportRoyaltyParams$_store_cell PROCINLINE:<{
+    NEWC
+    4 -ROLL
+    $ReportRoyaltyParams$_store INLINECALLDICT
     ENDC
   }>
   $NftCollection$_store PROCINLINE:<{
@@ -1075,7 +1075,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d6255714c5539774868785432317746764c66616d4a633857416f3342316b5a34326f3579703432487542526f} PUSHSLICE
+    x{697066733a2f2f516d61704532366243564d6b565a466662585a656171336b6455424c61686b3457516f354633756f72717a644759} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

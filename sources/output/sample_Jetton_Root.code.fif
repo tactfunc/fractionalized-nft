@@ -12,13 +12,13 @@ PROGRAM{
   DECLPROC __tact_slice_eq_bits
   DECLPROC __tact_dict_set_code
   DECLPROC __tact_dict_get_code
-  DECLPROC $UploadContent$_load
-  DECLPROC $TokenMinting$_load
-  DECLPROC $TokenBurnNotification$_load
   DECLPROC $TokenTransferInternal$_store
   DECLPROC $TokenTransferInternal$_store_cell
   DECLPROC $TokenExcesses$_store
   DECLPROC $TokenExcesses$_store_cell
+  DECLPROC $UploadContent$_load
+  DECLPROC $TokenMinting$_load
+  DECLPROC $TokenBurnNotification$_load
   DECLPROC $Defractionalize$_store
   DECLPROC $Defractionalize$_store_cell
   DECLPROC $Jetton_Root$_store
@@ -172,40 +172,6 @@ PROGRAM{
     NULLSWAPIFNOT
     135 THROWIFNOT
   }>
-  $UploadContent$_load PROCINLINE:<{
-    32 LDU
-    SWAP
-    1491002018 PUSHINT
-    EQUAL
-    129 THROWIFNOT
-    LDREF
-    SWAP
-  }>
-  $TokenMinting$_load PROCINLINE:<{
-    32 LDU
-    SWAP
-    2889080367 PUSHINT
-    EQUAL
-    129 THROWIFNOT
-    __tact_load_address INLINECALLDICT
-    SWAP
-    __tact_load_address INLINECALLDICT
-    s1 s2 XCHG
-  }>
-  $TokenBurnNotification$_load PROCINLINE:<{
-    32 LDU
-    SWAP
-    2078119902 PUSHINT
-    EQUAL
-    129 THROWIFNOT
-    64 LDU
-    LDGRAMS
-    __tact_load_address INLINECALLDICT
-    SWAP
-    __tact_load_address_opt INLINECALLDICT
-    s1 s4 XCHG
-    s3 s3 s0 XCHG3
-  }>
   $TokenTransferInternal$_store PROCREF:<{
     395134233 PUSHINT
     s0 s7 XCHG2
@@ -240,6 +206,40 @@ PROGRAM{
     SWAP
     $TokenExcesses$_store INLINECALLDICT
     ENDC
+  }>
+  $UploadContent$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    1491002018 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    LDREF
+    SWAP
+  }>
+  $TokenMinting$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    2889080367 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    s1 s2 XCHG
+  }>
+  $TokenBurnNotification$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    2078119902 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    LDGRAMS
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address_opt INLINECALLDICT
+    s1 s4 XCHG
+    s3 s3 s0 XCHG3
   }>
   $Defractionalize$_store PROCINLINE:<{
     3221538545 PUSHINT
@@ -754,7 +754,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d5155325243664e396131384257417633737078534d616f47315a7769314a4c576d726653615874634c536270} PUSHSLICE
+    x{697066733a2f2f516d583161693547694476454c686e4a32695833584862486b633543716f564b5a35503170386831534a63584851} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

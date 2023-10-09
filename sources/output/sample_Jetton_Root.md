@@ -17,22 +17,6 @@ Signature: `Context{bounced:bool,sender:address,value:int257,raw:^slice}`
 TLB: `_ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters`
 Signature: `SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell}`
 
-## UploadContent
-TLB: `upload_content#58dee2a2 content:^cell = UploadContent`
-Signature: `UploadContent{content:^cell}`
-
-## TokenMinting
-TLB: `token_minting#ac33de2f collection_address:address original_applicant:address = TokenMinting`
-Signature: `TokenMinting{collection_address:address,original_applicant:address}`
-
-## SafeTokenBurn
-TLB: `safe_token_burn#e3df0a31 queryId:uint64 amount:coins owner:address responseAddress:Maybe address = SafeTokenBurn`
-Signature: `SafeTokenBurn{queryId:uint64,amount:coins,owner:address,responseAddress:Maybe address}`
-
-## TokenBurnNotification
-TLB: `token_burn_notification#7bdd97de queryId:uint64 amount:coins owner:address responseAddress:Maybe address = TokenBurnNotification`
-Signature: `TokenBurnNotification{queryId:uint64,amount:coins,owner:address,responseAddress:Maybe address}`
-
 ## MasterData
 TLB: `_ total_supply:int257 mintable:bool admin_address:address jetton_content:Maybe ^cell jetton_wallet_code:^cell = MasterData`
 Signature: `MasterData{total_supply:int257,mintable:bool,admin_address:address,jetton_content:Maybe ^cell,jetton_wallet_code:^cell}`
@@ -65,21 +49,21 @@ Signature: `TokenUpdateContent{content:Maybe ^cell}`
 TLB: `_ balance:int257 owner:address master:address code:^cell = WalletData`
 Signature: `WalletData{balance:int257,owner:address,master:address,code:^cell}`
 
-## Fractionalize
-TLB: `fractionalize#f26348d9 item_index:uint32 original_applicant:address = Fractionalize`
-Signature: `Fractionalize{item_index:uint32,original_applicant:address}`
+## UploadContent
+TLB: `upload_content#58dee2a2 content:^cell = UploadContent`
+Signature: `UploadContent{content:^cell}`
 
-## Defractionalize
-TLB: `defractionalize#c004c6f1 sender:address = Defractionalize`
-Signature: `Defractionalize{sender:address}`
+## TokenMinting
+TLB: `token_minting#ac33de2f collection_address:address original_applicant:address = TokenMinting`
+Signature: `TokenMinting{collection_address:address,original_applicant:address}`
 
-## GetRoyaltyParams
-TLB: `get_royalty_params#693d3950 query_id:uint64 = GetRoyaltyParams`
-Signature: `GetRoyaltyParams{query_id:uint64}`
+## SafeTokenBurn
+TLB: `safe_token_burn#e3df0a31 queryId:uint64 amount:coins owner:address responseAddress:Maybe address = SafeTokenBurn`
+Signature: `SafeTokenBurn{queryId:uint64,amount:coins,owner:address,responseAddress:Maybe address}`
 
-## ReportRoyaltyParams
-TLB: `report_royalty_params#a8cb00ad query_id:uint64 numerator:uint16 denominator:uint16 destination:address = ReportRoyaltyParams`
-Signature: `ReportRoyaltyParams{query_id:uint64,numerator:uint16,denominator:uint16,destination:address}`
+## TokenBurnNotification
+TLB: `token_burn_notification#7bdd97de queryId:uint64 amount:coins owner:address responseAddress:Maybe address = TokenBurnNotification`
+Signature: `TokenBurnNotification{queryId:uint64,amount:coins,owner:address,responseAddress:Maybe address}`
 
 ## CollectionData
 TLB: `_ next_item_index:int257 collection_content:^cell admin:address = CollectionData`
@@ -88,6 +72,14 @@ Signature: `CollectionData{next_item_index:int257,collection_content:^cell,admin
 ## RoyaltyParams
 TLB: `_ numerator:int257 denominator:int257 destination:address = RoyaltyParams`
 Signature: `RoyaltyParams{numerator:int257,denominator:int257,destination:address}`
+
+## Fractionalize
+TLB: `fractionalize#f26348d9 item_index:uint32 original_applicant:address = Fractionalize`
+Signature: `Fractionalize{item_index:uint32,original_applicant:address}`
+
+## Defractionalize
+TLB: `defractionalize#c004c6f1 sender:address = Defractionalize`
+Signature: `Defractionalize{sender:address}`
 
 ## RedeemNftItem
 TLB: `redeem_nft_item#ac4112b8 new_owner:address = RedeemNftItem`
@@ -116,6 +108,14 @@ Signature: `ReportStaticData{query_id:uint64,index_id:int257,collection:address}
 ## GetNftData
 TLB: `_ is_initialized:bool index:int257 collection_address:address owner_address:address individual_content:^cell = GetNftData`
 Signature: `GetNftData{is_initialized:bool,index:int257,collection_address:address,owner_address:address,individual_content:^cell}`
+
+## GetRoyaltyParams
+TLB: `get_royalty_params#693d3950 query_id:uint64 = GetRoyaltyParams`
+Signature: `GetRoyaltyParams{query_id:uint64}`
+
+## ReportRoyaltyParams
+TLB: `report_royalty_params#a8cb00ad query_id:uint64 numerator:uint16 denominator:uint16 destination:address = ReportRoyaltyParams`
+Signature: `ReportRoyaltyParams{query_id:uint64,numerator:uint16,denominator:uint16,destination:address}`
 
 # Get Methods
 Total Get Methods: 4

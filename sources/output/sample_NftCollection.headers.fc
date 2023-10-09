@@ -66,26 +66,17 @@ builder $TokenMinting$_store(builder build_0, (slice, slice) v) inline;
 ;; $TokenMinting$_store_cell
 cell $TokenMinting$_store_cell((slice, slice) v) inline;
 
-;; $Fractionalize$_load
-(slice, ((int, slice))) $Fractionalize$_load(slice sc_0) inline;
-
-;; $Defractionalize$_load
-(slice, ((slice))) $Defractionalize$_load(slice sc_0) inline;
-
-;; $GetRoyaltyParams$_load
-(slice, ((int))) $GetRoyaltyParams$_load(slice sc_0) inline;
-
-;; $ReportRoyaltyParams$_store
-builder $ReportRoyaltyParams$_store(builder build_0, (int, int, int, slice) v) inline;
-
-;; $ReportRoyaltyParams$_store_cell
-cell $ReportRoyaltyParams$_store_cell((int, int, int, slice) v) inline;
-
 ;; $RoyaltyParams$_store
 builder $RoyaltyParams$_store(builder build_0, (int, int, slice) v) inline;
 
 ;; $RoyaltyParams$_load
 (slice, ((int, int, slice))) $RoyaltyParams$_load(slice sc_0) inline;
+
+;; $Fractionalize$_load
+(slice, ((int, slice))) $Fractionalize$_load(slice sc_0) inline;
+
+;; $Defractionalize$_load
+(slice, ((slice))) $Defractionalize$_load(slice sc_0) inline;
 
 ;; $RedeemNftItem$_store
 builder $RedeemNftItem$_store(builder build_0, (slice) v) inline;
@@ -98,6 +89,15 @@ builder $Transfer$_store(builder build_0, (int, slice, slice, cell, int, slice) 
 
 ;; $Transfer$_store_cell
 cell $Transfer$_store_cell((int, slice, slice, cell, int, slice) v) inline;
+
+;; $GetRoyaltyParams$_load
+(slice, ((int))) $GetRoyaltyParams$_load(slice sc_0) inline;
+
+;; $ReportRoyaltyParams$_store
+builder $ReportRoyaltyParams$_store(builder build_0, (int, int, int, slice) v) inline;
+
+;; $ReportRoyaltyParams$_store_cell
+cell $ReportRoyaltyParams$_store_cell((int, int, int, slice) v) inline;
 
 ;; $NftCollection$_store
 builder $NftCollection$_store(builder build_0, (int, slice, (int, int, slice), cell, cell, int, int) v) inline;
